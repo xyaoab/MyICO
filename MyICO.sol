@@ -7,7 +7,6 @@ contract ICO {
 	//introducing the maximum number of tokens available for sealed
 
 
-    
 	uint public max_tokens = 1000000;
     
  
@@ -65,18 +64,17 @@ contract ICO {
 		total_tokens_sold += tokens_bought;
    
 	}
-
-    	//function sell_tokens(address investor, uint tokens_sold) public {
+    // return the coin back to the company during ICO
+    // amount of investors and amont of sold 
+    function sell_tokens(address investor, uint tokens_sold) public {
         
 		// Check if investor has enough tokens that he is trying to sell, require() provide a msg for invalid cases
-		
-         	// update variables
-         	
+		require(tokens_sold <= equity_tokens[investor], "Tx failed. Not enough balance.");
+        // update variables
+        equity_tokens[investor] -= tokens_sold;
+        equity_usd[investor] = equity_tokens[investor] / usd_to_mytoken;
+        total_tokens_sold -= tokens_sold;
          
-		
- 		
-    
-	//}    
+	}    
    
-
 }
